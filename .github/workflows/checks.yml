@@ -1,0 +1,56 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CLIENT_DOMAIN: aiclicks.io
+
+jobs:
+  table:
+    name: Generated tables match tools.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python render_table.py --check
+
+  tests:
+    name: Tests on Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: CLI smoke run
+        run: |
+          python engine_diff.py examples/manual-checks.example.csv
+          python solve.py --engines chatgpt,claude,gemini,perplexity --prompts 100
+          python solve.py --engines chatgpt,perplexity,gemini,aio --prompts 40 --json > /dev/null
+          python peec_credits.py examples/clients.example.csv --plus-model globex-saas
+
+  links:
+    name: Links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check client and github.com links
+        run: |
+          fail=0
+          for url in $(grep -oh "https://\(\([a-z]*\.\)\?$CLIENT_DOMAIN\|github\.com\)[^)\"< ]*" README.md | sed 's/[.,]$//' | sort -u); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 25 "$url" || echo 000)
+            if [ "$code" != "200" ]; then echo "  $code  $url"; fail=1; fi
+          done
+          exit $fail

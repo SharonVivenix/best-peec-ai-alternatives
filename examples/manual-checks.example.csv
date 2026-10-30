@@ -1,0 +1,31 @@
+prompt,engine,brands
+best crm for a 10 person startup,chatgpt,Acme CRM|Northwind|Globex|Initech
+best crm for a 10 person startup,copilot,Acme CRM|Northwind|Globex|Hooli
+best crm for a 10 person startup,perplexity,Northwind|Vandelay|Acme CRM|Stark
+best crm for a 10 person startup,gemini,Globex|Acme CRM|Wayne Suite
+best crm for a 10 person startup,aio,Globex|Acme CRM|Wayne Suite|Northwind
+best crm for a 10 person startup,claude,Initech|Pied Piper|Northwind
+crm with built in email sequences,chatgpt,Northwind|Globex|Initech
+crm with built in email sequences,copilot,Northwind|Globex|Initech
+crm with built in email sequences,perplexity,Vandelay|Northwind|Stark
+crm with built in email sequences,gemini,Globex|Wayne Suite|Northwind
+crm with built in email sequences,aio,Globex|Wayne Suite|Northwind
+crm with built in email sequences,claude,Pied Piper|Initech|Stark
+cheapest crm with a free plan,chatgpt,Acme CRM|Hooli|Globex
+cheapest crm with a free plan,copilot,Acme CRM|Hooli|Globex
+cheapest crm with a free plan,perplexity,Hooli|Vandelay|Stark
+cheapest crm with a free plan,gemini,Acme CRM|Wayne Suite|Hooli
+cheapest crm with a free plan,aio,Acme CRM|Wayne Suite|Hooli|Globex
+cheapest crm with a free plan,claude,Hooli|Pied Piper
+crm alternatives for agencies,chatgpt,Initech|Northwind|Acme CRM
+crm alternatives for agencies,copilot,Initech|Northwind|Acme CRM|Globex
+crm alternatives for agencies,perplexity,Stark|Vandelay|Northwind
+crm alternatives for agencies,gemini,Wayne Suite|Initech|Globex
+crm alternatives for agencies,aio,Wayne Suite|Initech|Globex
+crm alternatives for agencies,claude,Pied Piper|Initech|Northwind
+who can help me migrate off spreadsheets to a crm,chatgpt,Acme CRM|Globex
+who can help me migrate off spreadsheets to a crm,copilot,Acme CRM|Globex
+who can help me migrate off spreadsheets to a crm,perplexity,Vandelay|Acme CRM|Stark
+who can help me migrate off spreadsheets to a crm,gemini,Wayne Suite|Globex
+who can help me migrate off spreadsheets to a crm,aio,Wayne Suite|Globex|Acme CRM
+who can help me migrate off spreadsheets to a crm,claude,Pied Piper|Acme CRM

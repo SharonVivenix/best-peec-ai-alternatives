@@ -1,0 +1,221 @@
+# Self serve plans for Peec AI and the alternatives in this repo.
+# solve.py reads this file to answer "which tool covers these engines at this
+# prompt count, and what is the cheapest plan that does it". render_table.py
+# builds both README tables from it. Never type a computed number by hand.
+#
+# Plan fields
+#   price        monthly list price in `currency`, null when usage priced
+#   prompts      tracked prompt cap, null when credits or configurable
+#   included     engines every subscriber gets
+#   choose/pool  pick `choose` engines from `pool` (Peec and AIclicks work this way)
+#   addon        engines you can buy on top of the plan
+#   addon_price  monthly price per add on engine, null when not published
+#   addon_bundle monthly cap when all add ons are bought together
+# Tool fields
+#   enterprise   engines that exist only behind a sales contract
+#   action       report | prioritize | execute, what the self serve plan does
+#                with the data once it is collected
+#   checked      where the plan facts came from and when
+#
+# Engine ids: chatgpt perplexity gemini aio ai_mode copilot claude grok
+#             deepseek meta mistral qwen naver
+
+- id: peec
+  name: Peec AI
+  url: https://peec.ai/pricing
+  currency: USD
+  action: prioritize
+  api: Enterprise only
+  trial: none listed
+  checked: vendor pricing page, 30 October 2026
+  plans:
+    - {name: Starter, price: 95, prompts: 50, choose: 3,
+       pool: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver],
+       addon: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver], addon_price: null}
+    - {name: Pro, price: 245, prompts: 150, choose: 3,
+       pool: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver],
+       addon: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver], addon_price: null}
+    - {name: Advanced, price: 495, prompts: 350, choose: 3,
+       pool: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver],
+       addon: [chatgpt, ai_mode, aio, copilot, gemini, perplexity, naver], addon_price: null}
+  enterprise: [claude, grok, deepseek, qwen, mistral, meta]
+
+- id: aiclicks
+  name: AIclicks
+  url: https://aiclicks.io/pricing
+  currency: USD
+  action: execute
+  api: Pro and up (API, MCP, GA4)
+  trial: 3 days
+  checked: vendor pricing page, 30 October 2026
+  plans:
+    - {name: Starter, price: 59, prompts: 30, choose: 3,
+       pool: [chatgpt, gemini, copilot, aio, ai_mode, naver, claude, grok, perplexity, mistral, deepseek, qwen, meta]}
+    - {name: Pro, price: 189, prompts: 150, choose: 4,
+       pool: [chatgpt, gemini, copilot, aio, ai_mode, naver, claude, grok, perplexity, mistral, deepseek, qwen, meta]}
+    - {name: Business, price: 499, prompts: 300, choose: 6,
+       pool: [chatgpt, gemini, copilot, aio, ai_mode, naver, claude, grok, perplexity, mistral, deepseek, qwen, meta]}
+  enterprise: []
+
+- id: ai-rank-checker
+  name: AI Rank Checker
+  url: https://airankchecker.net/
+  currency: USD
+  action: report
+  api: not listed
+  trial: wallet, no subscription
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Wallet, price: null, prompts: null,
+       included: [chatgpt, gemini, claude, perplexity, ai_mode, aio, grok]}
+  enterprise: []
+
+- id: ai-peekaboo
+  name: AI Peekaboo
+  url: https://aipeekaboo.com/pricing
+  currency: USD
+  action: report
+  api: every paid plan (API, MCP)
+  trial: 14 days
+  checked: vendor page for engines 30 October 2026, roundup for price
+  plans:
+    - {name: Configurable, price: 29, prompts: null,
+       included: [chatgpt, gemini, perplexity, aio, ai_mode],
+       addon: [claude, copilot], addon_price: null}
+  enterprise: []
+
+- id: profound
+  name: Profound
+  url: https://www.tryprofound.com/pricing
+  currency: USD
+  action: report
+  api: Enterprise
+  trial: none listed
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Starter, price: 99, prompts: 50, included: [chatgpt]}
+    - {name: Growth, price: 399, prompts: 100, included: [chatgpt, perplexity, aio]}
+  enterprise: [gemini, copilot, meta, grok, deepseek, claude, ai_mode]
+
+- id: scrunch
+  name: Scrunch AI
+  url: https://scrunch.com/pricing
+  currency: USD
+  action: report
+  api: Enterprise
+  trial: 7 days
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Core, price: 250, prompts: 125, included: [chatgpt, perplexity, aio, copilot]}
+  enterprise: [claude, gemini, meta, ai_mode, grok]
+
+- id: athenahq
+  name: AthenaHQ
+  url: https://www.athenahq.ai/pricing
+  currency: USD
+  action: execute
+  api: Enterprise
+  trial: none
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Self Serve, price: 295, prompts: null,
+       included: [chatgpt, perplexity, aio, ai_mode, gemini, claude, copilot, grok]}
+  enterprise: []
+
+- id: writesonic
+  name: Writesonic
+  url: https://writesonic.com/pricing
+  currency: USD
+  action: execute
+  api: Enterprise
+  trial: none listed
+  checked: AIclicks roundup (annual billing prices), not rechecked
+  plans:
+    - {name: Starter, price: 79, prompts: 50, included: [chatgpt, gemini, aio]}
+    - {name: Basic, price: 199, prompts: 100, included: [chatgpt, gemini, aio]}
+  enterprise: [perplexity, ai_mode, copilot, claude, grok, deepseek, meta]
+
+- id: otterly
+  name: Otterly AI
+  url: https://otterly.ai/pricing
+  currency: USD
+  action: prioritize
+  api: not listed
+  trial: 14 days, no card
+  checked: vendor page for engines and Lite 30 October 2026, roundup for upper tiers
+  plans:
+    - {name: Lite, price: 29, prompts: 15, included: [chatgpt, aio, perplexity, copilot],
+       addon: [claude, ai_mode, gemini], addon_price: null}
+    - {name: Standard, price: 189, prompts: 100, included: [chatgpt, aio, perplexity, copilot],
+       addon: [claude, ai_mode, gemini], addon_price: null}
+    - {name: Premium, price: 489, prompts: 400, included: [chatgpt, aio, perplexity, copilot],
+       addon: [claude, ai_mode, gemini], addon_price: null}
+  enterprise: []
+
+- id: promptmonitor
+  name: PromptMonitor
+  url: https://promptmonitor.io/pricing
+  currency: USD
+  action: report
+  api: Enterprise
+  trial: free trial
+  checked: vendor pricing page, 30 October 2026
+  plans:
+    - {name: Starter, price: 39, prompts: 25, included: [chatgpt, gemini, perplexity]}
+    - {name: Growth, price: 79, prompts: 50,
+       included: [chatgpt, claude, gemini, deepseek, grok, perplexity, aio, ai_mode]}
+    - {name: Pro, price: 149, prompts: 150,
+       included: [chatgpt, claude, gemini, deepseek, grok, perplexity, aio, ai_mode]}
+  enterprise: []
+
+- id: rankscale
+  name: Rankscale AI
+  url: https://rankscale.ai/pricing
+  currency: EUR
+  action: report
+  api: not listed
+  trial: free trial with credit top ups
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Pro, price: 99, prompts: null,
+       included: [chatgpt, perplexity, claude, gemini, aio, ai_mode, deepseek, grok, copilot, mistral]}
+  enterprise: []
+
+- id: gauge
+  name: Gauge
+  url: https://www.withgauge.com/pricing
+  currency: USD
+  action: execute
+  api: not listed
+  trial: none listed
+  checked: vendor pricing page, 30 October 2026
+  plans:
+    - {name: Growth, price: 599, prompts: 600, included: [chatgpt, ai_mode, copilot]}
+  enterprise: [aio, gemini, perplexity, claude, grok]
+
+- id: geneo
+  name: Geneo
+  url: https://geneo.app/
+  currency: USD
+  action: prioritize
+  api: not listed
+  trial: free tier, 50 credits
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Pro, price: 39.90, prompts: null, included: [chatgpt, perplexity, aio]}
+    - {name: Agency Starter, price: 129, prompts: null, included: [chatgpt, perplexity, aio]}
+  enterprise: []
+
+- id: ahrefs-brand-radar
+  name: Ahrefs Brand Radar
+  url: https://ahrefs.com/brand-radar
+  currency: USD
+  action: report
+  api: Ahrefs API (separate plan)
+  trial: none
+  checked: AIclicks roundup, not rechecked
+  plans:
+    - {name: Lite plus indexes, price: 129, prompts: null,
+       addon: [chatgpt, perplexity, gemini, copilot, aio, ai_mode],
+       addon_price: 199, addon_bundle: 699}
+  enterprise: []
